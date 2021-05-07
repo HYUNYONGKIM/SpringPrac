@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.siggraph.web.dao.NoticeDao">
+<!-- 	<resultMap type="com.siggraph.web.entity.NoticeView" id="noticeViewMap"> -->
+<!-- 		<result property="writerId" column="memberName"/> -->
+<!-- 	</resultMap> -->
+
+	<select id="getViewList"
+		resultType="com.siggraph.web.entity.NoticeView">
+		select * from noticeview
+		where ${field} like CONCAT('%',#{query},'%')
+		order by regdate desc
+		limit #{offset}, #{size}
+	</select>
+
+	<select id="getCount" resultType="_int">
+		select count(id) count from noticeview
+		where ${field} like '%${query}%'
+	</select>
+
+	<select id="getView"
+		resultType="com.siggraph.web.entity.NoticeView">
+		select * from noticeview
+		where id=#{id}
+	</select>
+
+	<select id="getNext" resultType="com.siggraph.web.entity.Notice">
+		select * from notice
+		where
+		regdate &gt; (select regdate from notice where id = #{id})
+		limit 1;
+	</select>
+
+	<select id="getPrev" resultType="com.siggraph.web.entity.Notice">
+		select * from notice
+		where
+		regdate &lt; (select regdate from notice where id = #{id})
+		order by
+		regdate desc
+		limit 1;
+	</select>
+
+	<update id="update"
+		parameterType="com.siggraph.web.entity.Notice">
+		update
+		set
+		title = #{title},
+		content = #{content},
+		hit = #{hit},
+		pub = #{pub},
+		where id = #{id}
+	</update>
+
+	<insert id="insert"
+		parameterType="com.siggraph.web.entity.Notice">
+		insert into Notice(title, content, memberId)
+		values
+		(#{title},#{content},#{memberId})
+	</insert>
+
+	<delete id="delete">
+		delete from Notice
+		where id = #{id}
+	</delete>
+
+	<delete id="deleteAll">
+		delete from Notice
+		where id in
+		<foreach item="id" index="index" collection="ids" open="("
+			separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<update id="updatePubAll">
+		update
+		set
+			pub = case id
+				<foreach item="id" index="index" collection="pubIds">
+					when #{id} then 1
+				</foreach>
+				<foreach item="id" index="index" collection="closeIds">
+					when #{id} then 0
+				</foreach>
+				end
+		where id in (
+		<foreach item="id" collection="pubIds" separator=",">
+			#{id}
+		</foreach>
+		,
+		<foreach item="id" collection="closeIds" separator=",">
+			#{id}
+		</foreach>
+		)
+	</update>
+
+</mapper>
