@@ -117,28 +117,5 @@ public class NoticeController {
 		return new RedirectView("detail?id="+id);
 	}
 	
-	@PostMapping("pubAll")
-	public RedirectView pubAll(
-			@RequestParam(value = "open-id", defaultValue = "") int[] openIds,
-			@RequestParam(value = "del-id", defaultValue = "") int[] delIds,
-			@RequestParam(value="cmd") String cmd) {
-		
-		switch (cmd) {
-		case "선택공개":
-			
-			service.updatePubAll(openIds, delIds);
-			
-			for(Integer id : openIds)
-				System.out.println(id);
-			break;
-
-		case "선택삭제" :
-			
-			service.deleteAll(delIds);
-							
-			break;
-		}
-				
-		return new RedirectView("list");
-	}
+	
 }
