@@ -25,5 +25,6 @@ public interface NoticeDao {
 	int deleteAll(int[] ids);
 	int updatePubAll(int[] pubIds, int[] closeIds);
 	
+	
 
 }

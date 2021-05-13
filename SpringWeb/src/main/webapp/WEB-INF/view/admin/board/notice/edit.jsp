@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <main>
 	<h2 class="main title">공지사항 등록</h2>
 
@@ -12,7 +14,9 @@
 		</ul>
 	</div>
 
-	<form method="post" action="reg">
+	<c:set var="n" value="${notice}" />
+
+	<form method="post" action="edit?id=${n.id}">
 		<div class="margin-top first">
 			<h3 class="hidden">공지사항 입력</h3>
 			<table class="table">
@@ -20,7 +24,7 @@
 					<tr>
 						<th>제목</th>
 						<td class="text-align-left text-indent text-strong text-orange"
-							colspan="3"><input type="text" name="title" /></td>
+							colspan="3"><input type="text" name="title" value="${n.title}" /></td>
 					</tr>
 					<tr>
 						<th>첨부파일</th>
@@ -28,7 +32,7 @@
 							type="file" name="file" /></td>
 					</tr>
 					<tr class="content">
-						<td colspan="4"><textarea class="content" name="content"></textarea></td>
+						<td colspan="4"><textarea class="content" name="content">${n.content}</textarea></td>
 					</tr>
 					<tr>
 						<td colspan="4" class="text-align-right"><input
@@ -40,7 +44,7 @@
 			</table>
 		</div>
 		<div class="margin-top text-align-center">
-			<input class="btn-text btn-default" type="submit" value="등록" /> 
+			<input class="btn-text btn-default" type="submit" value="수정" /> 
 			<a class="btn-text btn-cancel" href="list">취소</a>
 		</div>
 	</form>

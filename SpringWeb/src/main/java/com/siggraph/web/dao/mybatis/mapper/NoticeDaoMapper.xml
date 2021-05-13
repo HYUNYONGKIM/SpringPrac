@@ -44,12 +44,11 @@
 
 	<update id="update"
 		parameterType="com.siggraph.web.entity.Notice">
-		update
+		update notice
 		set
 		title = #{title},
 		content = #{content},
-		hit = #{hit},
-		pub = #{pub},
+		pub = #{pub}
 		where id = #{id}
 	</update>
 
@@ -60,8 +59,8 @@
 		(#{title},#{content},#{memberId})
 	</insert>
 
-	<delete id="delete">
-		delete from Notice
+	<delete id="delete" parameterType="int">
+		delete from NOTICE
 		where id = #{id}
 	</delete>
 
@@ -75,7 +74,7 @@
 	</delete>
 	
 	<update id="updatePubAll">
-		update
+		update notice
 		set
 			pub = case id
 				<foreach item="id" index="index" collection="pubIds">
