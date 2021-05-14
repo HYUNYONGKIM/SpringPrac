@@ -12,6 +12,8 @@ import com.siggraph.web.entity.NoticeView;
 @Service
 public class NoticeServiceImp implements NoticeService{
 
+	
+	
 	@Autowired
 	private NoticeDao noticeDao;
 	
@@ -81,6 +83,8 @@ public class NoticeServiceImp implements NoticeService{
 
 		return noticeDao.deleteAll(ids);
 	}
+	
+	
 
 	@Override
 	public int update(Notice notice) {
@@ -98,6 +102,18 @@ public class NoticeServiceImp implements NoticeService{
 	public int insert(Notice notice) {
 		
 		return noticeDao.insert(notice);
+	}
+
+	@Override
+	public int pubSelected(int[] pubIds, boolean pub) {
+		
+		return noticeDao.pubSelected(pubIds, pub);
+	}
+
+	@Override
+	public int closeSelected(int[] closeIds, boolean pub) {
+		
+		return noticeDao.closeSelected(closeIds, pub);
 	}
 
 }

@@ -120,18 +120,25 @@ public class NoticeController {
 	@PostMapping("pubAll")
 	public RedirectView pubAll(
 			@RequestParam(value = "open-id", defaultValue = "") int[] openIds,
+			@RequestParam(value = "close-id", defaultValue = "") int[] closeIds,
 			@RequestParam(value = "del-id", defaultValue = "") int[] delIds,
 			@RequestParam(value="cmd") String cmd) {
 		
+		boolean pub;
+		
 		switch (cmd) {
 		case "선택공개":
+			pub = true;
+			service.pubSelected(openIds, pub);
 			
-			service.updatePubAll(openIds, delIds);
-			
-			for(Integer id : openIds)
-				System.out.println(id);
 			break;
 
+		case "선택비공개" :
+			pub=false;
+			service.closeSelected(closeIds,pub);
+			
+			break;
+			
 		case "선택삭제" :
 			
 			service.deleteAll(delIds);

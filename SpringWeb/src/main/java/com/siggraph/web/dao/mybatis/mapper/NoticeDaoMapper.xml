@@ -94,5 +94,26 @@
 		</foreach>
 		)
 	</update>
+	
+	<update id="pubSelected">
+		update notice
+		set
+			pub = ${pub}
+		where id in
+		<foreach item="id" collection="pubIds" open="("
+			separator="," close=")">
+			#{id}
+		</foreach>
+	</update>
+	<update id="closeSelected">
+		update notice
+		set
+			pub = ${pub}
+		where id in
+		<foreach item="id" collection="closeIds" open="("
+			separator="," close=")">
+			#{id}
+		</foreach>
+	</update>
 
 </mapper>

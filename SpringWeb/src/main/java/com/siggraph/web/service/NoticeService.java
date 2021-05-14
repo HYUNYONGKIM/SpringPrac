@@ -23,8 +23,12 @@ public interface NoticeService {
 
 	//-일괄공개를 요청할 때
 	int updatePubAll(int[] pubIds, int[] closeIds);
-	//-일괄삭제를 요청할 때
+	//-선택삭제를 요청할 때
 	int deleteAll(int[] ids);
+	//-선택공개를 요청할 때
+	int pubSelected(int[] pubIds, boolean pub);
+	//-선택비공개를 요청할 때
+	int closeSelected(int[] closeIds, boolean pub);
 	
 	//-수정 페이지를 요청할 때
 	int update(Notice notice);
