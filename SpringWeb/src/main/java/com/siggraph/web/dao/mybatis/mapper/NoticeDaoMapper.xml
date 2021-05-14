@@ -11,13 +11,14 @@
 		resultType="com.siggraph.web.entity.NoticeView">
 		select * from noticeview
 		where ${field} like CONCAT('%',#{query},'%')
+			AND pub = ${pub}
 		order by regdate desc
 		limit #{offset}, #{size}
 	</select>
 
 	<select id="getCount" resultType="_int">
 		select count(id) count from noticeview
-		where ${field} like '%${query}%'
+		where ${field} like '%${query}%' and pub = ${pub}
 	</select>
 
 	<select id="getView"

@@ -26,9 +26,9 @@ public class NoticeController {
 			@RequestParam(value="q", defaultValue = "") String query,
 			Model model) {
 		
-		int count = service.getCount(field, query);
+		int count = service.getCount(field, query, true);
 		
-		List<NoticeView> list = service.getViewList(page, field, query);
+		List<NoticeView> list = service.getPubViewList(page, field, query, true);
 		model.addAttribute("list", list);
 		model.addAttribute("count", count);
 		

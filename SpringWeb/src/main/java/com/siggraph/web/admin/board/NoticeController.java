@@ -31,7 +31,7 @@ public class NoticeController {
 		
 		int count = service.getCount(field, query);
 
-		List<NoticeView> list = service.getViewList(page, field, query);
+		List<NoticeView> list = service.getViewList(page, field, query, true);
 		model.addAttribute("list", list);
 		model.addAttribute("count", count);
 		
