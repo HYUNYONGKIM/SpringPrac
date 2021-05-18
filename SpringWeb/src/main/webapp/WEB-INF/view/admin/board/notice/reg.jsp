@@ -31,9 +31,9 @@
 						<td colspan="4"><textarea class="content" name="content"></textarea></td>
 					</tr>
 					<tr>
-						<td colspan="4" class="text-align-right"><input
-							class="vertical-align" type="checkbox" id="open" name="open"
-							value="true"><label for="open" class="margin-left">바로공개</label>
+						<td colspan="4" class="text-align-right">
+						<input class="vertical-align" type="checkbox" id="open" name="open" value="true">
+						<label for="open" class="margin-left">바로공개</label>
 						</td>
 					</tr>
 				</tbody>

@@ -26,11 +26,11 @@ public class NoticeController {
 			@RequestParam(value="q", defaultValue = "") String query,
 			Model model) {
 		
-		int count = service.getCount(field, query);
+		int pubCount = service.getPubCount(field, query, true);
 		
-		List<NoticeView> list = service.getViewList(page, field, query);
+		List<NoticeView> list = service.getPubViewList(page, field, query, true);
 		model.addAttribute("list", list);
-		model.addAttribute("count", count);
+		model.addAttribute("count", pubCount);
 		
 		return "customer.notice.list";
 	}
@@ -39,12 +39,12 @@ public class NoticeController {
 	public String detail(@RequestParam(value="id", required = false) Integer id, Model model) {
 		
 		NoticeView notice = service.getView(id);
-		Notice nextNotice = service.getNext(id);
-		Notice prevNotice = service.getPrev(id);
+		Notice nextPubNotice = service.getPubNext(id, true);
+		Notice prevPubNotice = service.getPubPrev(id, true);
 
 		model.addAttribute("notice", notice);
-		model.addAttribute("nextNotice", nextNotice);
-		model.addAttribute("prevNotice", prevNotice);
+		model.addAttribute("nextNotice", nextPubNotice);
+		model.addAttribute("prevNotice", prevPubNotice);
 		
 		return "customer.notice.detail";
 	}

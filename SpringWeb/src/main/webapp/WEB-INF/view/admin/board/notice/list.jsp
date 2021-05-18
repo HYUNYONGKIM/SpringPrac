@@ -49,6 +49,15 @@
 				<tbody>
 	
 					<c:forEach var="n" items="${list}">
+					<c:set var="open" value=""/>
+					<c:set var="close" value=""/>
+					<c:if test="${n.pub}">
+						<c:set var="open" value="checked"/>
+					</c:if>
+					<c:if test="${n.pub == false}">
+						<c:set var="close" value="checked"/>
+					</c:if>
+					
 						<tr>
 							<td>${n.id }</td>
 							<td class="title indent text-align-left"><a
@@ -56,8 +65,8 @@
 							<td>${n.memberName }</td>
 							<td>${n.regdate }</td>
 							<td>${n.hit }</td>
-							<td><input type="checkbox" name="open-id" value="${n.id}"></td>
-							<td><input type="checkbox" name="close-id" value="${n.id}"></td>
+							<td><input type="checkbox" name="open-id" ${open} value="${n.id}"></td>
+							<td><input type="checkbox" name="close-id" ${close} value="${n.id}"></td>
 							<td><input type="checkbox" name="del-id" value="${n.id}"></td>
 						</tr>
 					</c:forEach>

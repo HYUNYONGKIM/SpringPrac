@@ -13,13 +13,26 @@ public interface NoticeService {
 	List<NoticeView> getViewList(String field, String query);
 	List<NoticeView> getViewList(int page, String field, String query);
 	
+	//공개된 게시판 요청할 때
+	List<NoticeView> getPubViewList(boolean pub);
+	//공개된 게시판 검색을 요청할 때
+	List<NoticeView> getPubViewList(String field, String query, boolean pub);
+	List<NoticeView> getPubViewList(int page, String field, String query, boolean pub);
+	
+	
 	int getCount();
 	int getCount(String field, String query);
+	
+	int getPubCount(boolean pub);
+	int getPubCount(String field, String query, boolean pub);
 	
 	//-자세한 페이지 요청할 때
 	NoticeView getView(int id);
 	Notice getNext(int id);
 	Notice getPrev(int id);
+	
+	Notice getPubNext(int id, boolean pub);
+	Notice getPubPrev(int id, boolean pub);
 
 	//-일괄공개를 요청할 때
 	int updatePubAll(int[] pubIds, int[] closeIds);

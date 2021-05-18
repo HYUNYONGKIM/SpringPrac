@@ -41,6 +41,28 @@ public class NoticeServiceImp implements NoticeService{
 	}
 
 	@Override
+	public List<NoticeView> getPubViewList(boolean pub) {
+		// TODO Auto-generated method stub
+		return getPubViewList(1,"title","", pub);
+	}
+
+	@Override
+	public List<NoticeView> getPubViewList(String field, String query, boolean pub) {
+		// TODO Auto-generated method stub
+		return getPubViewList(1, field, query, pub);
+	}
+
+	@Override
+	public List<NoticeView> getPubViewList(int page, String field, String query, boolean pub) {
+		int size = 10;
+		int offset = 0+(page-1)*size;
+		
+		List<NoticeView> list = noticeDao.getPubViewList(offset, size, field, query, pub);
+		
+		return list;
+	}
+	
+	@Override
 	public int getCount() {
 
 		return getCount("title", "");
@@ -50,6 +72,18 @@ public class NoticeServiceImp implements NoticeService{
 	public int getCount(String field, String query) {
 
 		return noticeDao.getCount(field, query);
+	}
+	
+	@Override
+	public int getPubCount(boolean pub) {
+		// TODO Auto-generated method stub
+		return getPubCount("title", "", pub);
+	}
+
+	@Override
+	public int getPubCount(String field, String query, boolean pub) {
+		// TODO Auto-generated method stub
+		return noticeDao.getPubCount(field, query, pub);
 	}
 	
 	@Override
@@ -70,6 +104,18 @@ public class NoticeServiceImp implements NoticeService{
 	public Notice getPrev(int id) {
 
 		return noticeDao.getPrev(id);
+	}
+	
+	@Override
+	public Notice getPubNext(int id, boolean pub) {
+		// TODO Auto-generated method stub
+		return noticeDao.getPubNext(id);
+	}
+
+	@Override
+	public Notice getPubPrev(int id, boolean pub) {
+		// TODO Auto-generated method stub
+		return noticeDao.getPubPrev(id);
 	}
 
 	@Override
@@ -115,5 +161,8 @@ public class NoticeServiceImp implements NoticeService{
 		
 		return noticeDao.closeSelected(closeIds, pub);
 	}
+
+
+
 
 }

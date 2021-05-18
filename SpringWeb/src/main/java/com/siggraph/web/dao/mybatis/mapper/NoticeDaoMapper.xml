@@ -14,10 +14,25 @@
 		order by regdate desc
 		limit #{offset}, #{size}
 	</select>
+	
+	<select id="getPubViewList"
+		resultType="com.siggraph.web.entity.NoticeView">
+		select * from noticeview
+		where pub = 1 and
+		${field} like CONCAT('%',#{query},'%')
+		order by regdate desc
+		limit #{offset}, #{size}
+	</select>
 
 	<select id="getCount" resultType="_int">
 		select count(id) count from noticeview
 		where ${field} like '%${query}%'
+	</select>
+	
+	<select id="getPubCount" resultType="_int">
+		select count(id) count from noticeview
+		where pub = ${pub} and 
+			${field} like '%${query}%'
 	</select>
 
 	<select id="getView"
@@ -41,6 +56,22 @@
 		regdate desc
 		limit 1;
 	</select>
+	
+	<select id="getPubNext" resultType="com.siggraph.web.entity.Notice">
+		select * from notice
+		where pub = ${pub} and
+		regdate &gt; (select regdate from notice where id = #{id})
+		limit 1;
+	</select>
+
+	<select id="getPubPrev" resultType="com.siggraph.web.entity.Notice">
+		select * from notice
+		where pub = ${pub} and
+		regdate &lt; (select regdate from notice where id = #{id})
+		order by
+		regdate desc
+		limit 1;
+	</select>
 
 	<update id="update"
 		parameterType="com.siggraph.web.entity.Notice">
@@ -54,9 +85,9 @@
 
 	<insert id="insert"
 		parameterType="com.siggraph.web.entity.Notice">
-		insert into Notice(title, content, memberId)
+		insert into Notice(title, content, memberId, pub)
 		values
-		(#{title},#{content},#{memberId})
+		(#{title},#{content},#{memberId}, ${pub})
 	</insert>
 
 	<delete id="delete" parameterType="int">
